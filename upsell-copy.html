@@ -186,12 +186,22 @@
     const publicKey = 'wCuDYXCMjSgaMDNfJ8eVsNRLiJBMHtGbFpiC8bJk';
     const nextURL = '/thank-you.html';
     const refId = sessionStorage.getItem('ref_id');
+    const upsellQuantity = document.getElementById('upsell-quantity');
     const upsellLineItem = [
       {
-        package_id: 5,
-        quantity: 1,
+        package_id: 6,
+        quantity: upsellQuantity.value,
       },
     ];
+
+    function onQuantityChange() {
+      const retailPrice = document.getElementById('upsell-retail-price');
+      const price = document.getElementById('upsell-price');
+      retailPrice.innerHTML = `$${upsellQuantity.value * 20}.00`;
+      price.innerHTML = `$${upsellQuantity.value * 10}.00`;
+    }
+
+    upsellQuantity.addEventListener('change', onQuantityChange);
   </script>
   <script type="text/javascript" src="js/campaign.js"></script>
   <script type="text/javascript" src="js/upsell.js"></script>
