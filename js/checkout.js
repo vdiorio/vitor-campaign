@@ -29,6 +29,8 @@ const sameAsShippingCheckBox = document.getElementById(
 const btnPaypal = document.querySelector('.pay-with-paypal');
 const btnCC = document.querySelector('.pay-with-cc');
 
+const warranty = document.querySelector('#extended_warranty_checkbox');
+
 /**
  *  Get Campaign
  */
@@ -154,6 +156,12 @@ const createOrder = async () => {
       state: data.billing_state,
       postcode: data.billing_postcode,
       country: data.billing_country,
+    };
+  }
+
+  if (warranty.checked) {
+    orderData.attribution = {
+      metadata: { extended_warranty: true },
     };
   }
 
@@ -347,6 +355,7 @@ const renderPackages = () => {
     item.dataset.priceTotal = package.priceTotal.toFixed(2);
     item.dataset.priceEach = package.price.toFixed(2);
     item.dataset.priceShipping = package.shippingPrice.toFixed(2);
+    item.dataset.priceWarranty = (package.quantity * 2).toFixed(2);
     item.dataset.shippingMethod = package.shippingMethod;
     item.innerHTML = template;
     item.querySelector('.offer-title-text').textContent = package.name;
@@ -385,10 +394,15 @@ const calculateTotal = () => {
   let selectedPackage = document.querySelector('.offer.selected');
   let packagePrice;
   let shippingPrice = selectedPackage.dataset.priceShipping;
+  let warrantyPrice = selectedPackage.dataset.priceWarranty;
 
   packagePrice = selectedPackage.dataset.priceTotal;
 
   let checkoutTotal = parseFloat(packagePrice) + parseFloat(shippingPrice);
+
+  if (warranty.checked) {
+    checkoutTotal += parseFloat(warrantyPrice);
+  }
 
   let orderTotal = document.querySelector('.order-summary-total-value');
 
@@ -409,6 +423,23 @@ document.addEventListener('DOMContentLoaded', function (event) {
   };
 
   lineArr.push(firstLineItem);
+
+  function checkWarranty() {
+    if (warranty.checked) {
+      document.querySelector('.extended-warranty').classList.remove('d-none');
+      lineArr[1] = {
+        package_id: 7,
+        quantity: document.querySelector('.offer.selected').dataset.quantity,
+        is_upsell: true,
+      };
+    } else {
+      lineArr = [firstLineItem];
+      document.querySelector('.extended-warranty').classList.add('d-none');
+    }
+    calculateTotal();
+  }
+
+  warranty.addEventListener('change', checkWarranty);
 
   const summaryShipPrice = document.querySelector('.selected-shipping-price');
 
@@ -431,8 +462,15 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
         let pQuantity = el.dataset.quantity;
 
+        let pWarranty = el.dataset.priceWarranty;
+
         document.getElementById('shipping_method').value = shippingMethod;
         document.querySelector('.selected-product-name').textContent = pName;
+        document.querySelector('.extended-warranty-quantity').textContent =
+          pQuantity + 'x';
+
+        document.querySelector('.extended-warranty-price').textContent =
+          campaign.currency.format(pWarranty);
 
         document.querySelector('.selected-product-price').textContent =
           campaign.currency.format(pPriceEach);
@@ -454,7 +492,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
         console.log('Change Line Items:', lineArr);
 
-        calculateTotal();
+        checkWarranty();
       });
     });
   }
@@ -471,6 +509,10 @@ document.addEventListener('DOMContentLoaded', function (event) {
         offer.dataset.name;
       document.querySelector('.selected-product-price').textContent =
         campaign.currency.format(offer.dataset.priceEach);
+      document.querySelector('.extended-warranty-quantity').textContent =
+        offer.dataset.quantity + 'x';
+      document.querySelector('.extended-warranty-price').textContent =
+        campaign.currency.format(offer.dataset.priceWarranty);
       if (offer.dataset.priceShipping != 0.0) {
         summaryShipPrice.textContent = campaign.currency.format(
           offer.dataset.priceShipping
