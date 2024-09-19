@@ -145,8 +145,12 @@ function submitPaymentForm() {
   cardErrBlock.innerHTML = '';
 
   const requiredFields = {
-    first_name: firstName.value,
-    last_name: lastName.value,
+    first_name: sameAsShippingCheckBox.checked
+      ? firstName.value
+      : billingFirstName.value,
+    last_name: sameAsShippingCheckBox.checked
+      ? lastName.value
+      : billingLastName.value,
     month: expMonth.value,
     year: expYear.value,
   };
