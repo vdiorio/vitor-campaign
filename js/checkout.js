@@ -19,8 +19,10 @@ const addCheckbox = document.getElementById('id_same_as_shipping');
 const formCC = document.getElementById('form-cc');
 const formShip = document.getElementById('form-shipping');
 const formBill = document.getElementById('form-billing');
-const validErrBlock = document.getElementById("validation-error-block")
-
+const validErrBlock = document.getElementById('validation-error-block');
+const sameAsShippingCheckBox = document.getElementById(
+  'billing_same_as_shipping_address'
+);
 // pay method buttons
 const btnPaypal = document.querySelector('.pay-with-paypal');
 const btnCC = document.querySelector(".pay-with-cc");

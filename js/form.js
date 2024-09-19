@@ -302,7 +302,14 @@ Spreedly.on('validation', function(inputProperties) {
 Spreedly.on('paymentMethod', function(token, pmData) {
     document.getElementById('card_token').value = token;
     createOrder();
-
 });
 
+function updateBillingValidation() {
+  if (sameAsShippingCheckBox.checked) {
+    formBill.classList.add('d-none');
+  } else {
+    formBill.classList.remove('d-none');
+  }
+}
 
+sameAsShippingCheckBox.addEventListener('change', updateBillingValidation);
