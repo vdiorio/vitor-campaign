@@ -87,13 +87,29 @@
                     <li>Lorem Ipsum has been the industry's</li>
                     <li>Lorem Ipsum is simply dummy text</li>
                   </ul>
+                  <div class="mb-3">
+                    <label for="upsell-quantity">Quantity:</label>
+                    <select
+                      class="upsell-quantity"
+                      name="upsell-quantity"
+                      id="upsell-quantity"
+                    >
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                  </div>
                   <div
                     class="up-prcBox d-flex justify-content-center align-items-center"
                   >
                     <div class="prc-bx ret-prc p-3 border-end">
                       <div class="fs-7">Retail Price</div>
-                      <span class="originalPrice fs-1 fw-bold text-muted"
-                        >$60.00</span
+                      <span
+                        class="originalPrice fs-1 fw-bold text-muted"
+                        id="upsell-retail-price"
+                        >$20.00</span
                       >
                     </div>
                     <div class="prc-bx ofr-prc p-3">
@@ -101,7 +117,8 @@
                       <span
                         style="color: #000"
                         class="currentPrice fs-1 fw-bold"
-                        >$30.00</span
+                        id="upsell-price"
+                        >$10.00</span
                       >
                     </div>
                   </div>
