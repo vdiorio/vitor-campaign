@@ -199,6 +199,7 @@
       const price = document.getElementById('upsell-price');
       retailPrice.innerHTML = `$${upsellQuantity.value * 20}.00`;
       price.innerHTML = `$${upsellQuantity.value * 10}.00`;
+      upsellLineItem[0].quantity = upsellQuantity.value;
     }
 
     upsellQuantity.addEventListener('change', onQuantityChange);
