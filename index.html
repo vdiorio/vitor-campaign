@@ -47,6 +47,28 @@
             <div class="step-title">STEP 1: SELECT PACKAGE</div>
             <hr class="mt-2" />
             <div class="offers d-flex flex-column"></div>
+            <div class="col mb-3">
+              <div class="border bg-white rounded-3 p-4">
+                <div class="col-12 mb-3">
+                  <input
+                    type="checkbox"
+                    name="extended_warranty"
+                    id="extended_warranty_checkbox"
+                  />
+                  <label for="extended_warranty" class="form-check-label">
+                    YES, I Want Extended Warranty
+                  </label>
+                </div>
+                <div class="col-12">
+                  <p class="mb-1">
+                    <span class="fw-bold"> One time offer:</span> By placing
+                    your order today, you can habve an extended warranty and
+                    replacemente plan. This means your product is covered for 2
+                    Years.
+                  </p>
+                </div>
+              </div>
+            </div>
             <div class="mb-5">
               <div class="row align-items-center">
                 <div class="col">
@@ -66,6 +88,20 @@
                       </div>
                       <div class="text-secondary">
                         <span class="selected-product-price"></span
+                        ><span class="fs-8"> /ea</span>
+                      </div>
+                    </div>
+                    <div
+                      class="justify-content-between p-3 d-flex fw-bold d-none extended-warranty"
+                    >
+                      <div>
+                        <span class="extended-warranty-quantity">{q}</span>
+                        <span class="extended-warranty-quantity">
+                          Extended Warranty
+                        </span>
+                      </div>
+                      <div class="text-secondary">
+                        <span class="extended-warranty-price"></span
                         ><span class="fs-8"> /ea</span>
                       </div>
                     </div>
