@@ -145,7 +145,17 @@ const createOrder = async () => {
     success_url: campaign.nextStep(nextURL),
   };
 
-  console.log(orderData);
+  if (!data.billing_same_as_shipping_address) {
+    orderData.billing_address = {
+      first_name: data.billing_first_name,
+      last_name: data.billing_last_name,
+      line1: data.billing_address_line1,
+      line4: data.billing_address_line4,
+      state: data.billing_state,
+      postcode: data.billing_postcode,
+      country: data.billing_country,
+    };
+  }
 
   try {
     const response = await fetch(ordersURL, {
